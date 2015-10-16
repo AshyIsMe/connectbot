@@ -249,6 +249,24 @@ public class TerminalView extends FrameLayout implements FontSizeChangedListener
 				viewPager.performClick();
 				return super.onSingleTapConfirmed(e);
 			}
+
+			/*
+				 * Enables doubletap = ESC+a
+				 *
+				 * @see
+				 * android.view.GestureDetector.SimpleOnGestureListener#
+				 * onDoubleTap(android.view.MotionEvent)
+				 *
+				 * @return boolean
+				 */
+			@Override
+			public boolean onDoubleTap(MotionEvent e) {
+				((vt320) bridge.buffer).keyTyped(vt320.KEY_ESCAPE, ' ', 0);
+				((vt320) bridge.buffer).write('a');
+
+				return true;
+			}
+
 		});
 	}
 
