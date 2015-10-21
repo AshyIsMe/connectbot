@@ -104,34 +104,34 @@ public class SSH extends AbsTransport implements ConnectionMonitor, InteractiveC
 		hostmask = Pattern.compile("^(.+)@(([0-9a-z.-]+)|(\\[[a-f:0-9]+\\]))(:(\\d+))?$", Pattern.CASE_INSENSITIVE);
 	}
 
-	private boolean compression = false;
-	private volatile boolean authenticated = false;
-	private volatile boolean connected = false;
-	private volatile boolean sessionOpen = false;
+	protected boolean compression = false;
+	protected volatile boolean authenticated = false;
+	protected volatile boolean connected = false;
+	protected volatile boolean sessionOpen = false;
 
 	private boolean pubkeysExhausted = false;
 	private boolean interactiveCanContinue = true;
 
-	private Connection connection;
-	private Session session;
-	private ConnectionInfo connectionInfo;
+	protected Connection connection;
+	protected Session session;
+	protected ConnectionInfo connectionInfo;
 
-	private OutputStream stdin;
-	private InputStream stdout;
-	private InputStream stderr;
+	protected OutputStream stdin;
+	protected InputStream stdout;
+	protected InputStream stderr;
 
-	private static final int conditions = ChannelCondition.STDOUT_DATA
+	protected static final int conditions = ChannelCondition.STDOUT_DATA
 		| ChannelCondition.STDERR_DATA
 		| ChannelCondition.CLOSED
 		| ChannelCondition.EOF;
 
 	private List<PortForwardBean> portForwards = new LinkedList<PortForwardBean>();
 
-	private int columns;
-	private int rows;
+	protected int columns;
+	protected int rows;
 
-	private int width;
-	private int height;
+	protected int width;
+	protected int height;
 
 	private String useAuthAgent = HostDatabase.AUTHAGENT_NO;
 	private String agentLockPassphrase;
