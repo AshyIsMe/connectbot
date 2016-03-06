@@ -33,7 +33,6 @@ import org.connectbot.util.PreferenceConstants;
 import org.connectbot.util.TerminalViewPager;
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -150,6 +149,7 @@ public class ConsoleActivity extends AppCompatActivity implements BridgeDisconne
 	@Nullable private ActionBar actionBar;
 	private boolean inActionBarMenu = false;
 	private boolean titleBarHide;
+	private boolean keyboardAlwaysVisible = false;
 
 	private ServiceConnection connection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
@@ -174,17 +174,26 @@ public class ConsoleActivity extends AppCompatActivity implements BridgeDisconne
 
 			// create views for all bridges on this service
 			adapter.notifyDataSetChanged();
-			int requestedIndex = bound.getBridges().indexOf(requestedBridge);
+			final int requestedIndex = bound.getBridges().indexOf(requestedBridge);
+
+			if (requestedBridge != null)
+				requestedBridge.promptHelper.setHandler(promptHandler);
+
 
 			if (requestedIndex != -1) {
-				setDisplayedTerminal(requestedIndex);
+				pager.post(new Runnable() {
+					@Override
+					public void run() {
+						setDisplayedTerminal(requestedIndex);
+					}
+				});
 			}
 		}
 
 		public void onServiceDisconnected(ComponentName className) {
+			bound = null;
 			adapter.notifyDataSetChanged();
 			updateEmptyVisible();
-			bound = null;
 		}
 	};
 
@@ -431,8 +440,10 @@ public class ConsoleActivity extends AppCompatActivity implements BridgeDisconne
 				if (keyboardGroup.getVisibility() == View.GONE || inActionBarMenu)
 					return;
 
-				keyboardGroup.startAnimation(keyboard_fade_out);
-				keyboardGroup.setVisibility(View.GONE);
+				if (keyboardAlwaysVisible == false) {
+					keyboardGroup.startAnimation(keyboard_fade_out);
+					keyboardGroup.setVisibility(View.GONE);
+				}
 				hideActionBarIfRequested();
 				keyboardGroupHider = null;
 			}
@@ -441,9 +452,11 @@ public class ConsoleActivity extends AppCompatActivity implements BridgeDisconne
 	}
 
 	private void hideEmulatedKeys() {
-		if (keyboardGroupHider != null)
-			handler.removeCallbacks(keyboardGroupHider);
-		keyboardGroup.setVisibility(View.GONE);
+		if (keyboardAlwaysVisible == false) {
+			if (keyboardGroupHider != null)
+				handler.removeCallbacks(keyboardGroupHider);
+			keyboardGroup.setVisibility(View.GONE);
+		}
 		hideActionBarIfRequested();
 	}
 
@@ -499,7 +512,6 @@ public class ConsoleActivity extends AppCompatActivity implements BridgeDisconne
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 		pager = (TerminalViewPager) findViewById(R.id.console_flip);
-
 		pager.addOnPageChangeListener(
 				new TerminalViewPager.SimpleOnPageChangeListener() {
 					@Override
@@ -568,6 +580,19 @@ public class ConsoleActivity extends AppCompatActivity implements BridgeDisconne
 		inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
 		keyboardGroup = (LinearLayout) findViewById(R.id.keyboard_group);
+
+		keyboardAlwaysVisible = prefs.getBoolean(PreferenceConstants.KEY_ALWAYS_VISIVLE, false);
+		if (keyboardAlwaysVisible) {
+			// equivalent to android:layout_above=keyboard_group
+			RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+					ViewGroup.LayoutParams.MATCH_PARENT,
+					ViewGroup.LayoutParams.MATCH_PARENT);
+			layoutParams.addRule(RelativeLayout.ABOVE, R.id.keyboard_group);
+			pager.setLayoutParams(layoutParams);
+
+			// Show virtual keyboard
+			keyboardGroup.setVisibility(View.VISIBLE);
+		}
 
 		mKeyboardButton = (ImageView) findViewById(R.id.button_keyboard);
 		mKeyboardButton.setOnClickListener(new OnClickListener() {
@@ -875,7 +900,8 @@ public class ConsoleActivity extends AppCompatActivity implements BridgeDisconne
 				final TerminalView terminalView = adapter.getCurrentTerminalView();
 
 				final View resizeView = inflater.inflate(R.layout.dia_resize, null, false);
-				new AlertDialog.Builder(ConsoleActivity.this)
+				new android.support.v7.app.AlertDialog.Builder(
+								ConsoleActivity.this, R.style.AlertDialogTheme)
 						.setView(resizeView)
 						.setPositiveButton(R.string.button_resize, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
@@ -1062,8 +1088,8 @@ public class ConsoleActivity extends AppCompatActivity implements BridgeDisconne
 		// Maintain selected host if connected.
 		if (adapter.getCurrentTerminalView() != null
 				&& !adapter.getCurrentTerminalView().bridge.isDisconnected()) {
-			Uri uri = adapter.getCurrentTerminalView().bridge.host.getUri();
-			savedInstanceState.putString(STATE_SELECTED_URI, uri.toString());
+			requested = adapter.getCurrentTerminalView().bridge.host.getUri();
+			savedInstanceState.putString(STATE_SELECTED_URI, requested.toString());
 		}
 
 		super.onSaveInstanceState(savedInstanceState);

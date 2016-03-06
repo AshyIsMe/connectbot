@@ -8,14 +8,7 @@
   <string name="title_host_editor">Uredi Računalo</string>
   <string name="title_help">Pomoć</string>
   <string name="title_colors">Boje</string>
-  <string name="resolve_connect">Spoji se</string>
-  <string name="resolve_entropy">Očitaj Entropiju</string>
-  <string name="menu_insert">Dodaj računalo</string>
-  <string name="menu_delete">Obriši računalo</string>
-  <string name="menu_preferences">Postavke</string>
   <string name="help_intro">Molim Vas za više informacija odaberite temu ispod.</string>
-  <string name="help_about">O ConnectBot-u</string>
-  <string name="help_keyboard">Tipkovnica</string>
   <string name="pubkey_generate">Stvori</string>
   <string name="pubkey_delete">Obriši ključ</string>
   <string name="pubkey_gather_entropy">Sakupljanje Entropije</string>
@@ -45,8 +38,8 @@
   <string name="prompt_old_password">Stara zaporka:</string>
   <string name="prompt_password">Zaporka</string>
   <string name="prompt_again">(ponovo)</string>
-  <string name="prompt_type">Type:</string>
-  <string name="prompt_password_can_be_blank">Uputa: zaporka može biti prazna</string>
+  <string name="prompt_type">Vrsta:</string>
+  <string name="prompt_password_can_be_blank">Uputa: lozinka može biti prazna</string>
   <string name="prompt_bits">Bits:</string>
   <string name="prompt_pubkey_password">Zaporka za ključ \'%1$s\'</string>
   <string name="prompt_allow_agent_to_use_key">Dopusti udaljenom računalu da\nkoristi ključ \'%1$s\'?</string>
@@ -60,9 +53,7 @@
   <string name="alert_wrong_password_msg">Kriva zaporka!</string>
   <string name="alert_key_corrupted_msg">Privatni ključ je oštećen!</string>
   <string name="alert_sdcard_absent">SD kartica nije umetnuta!</string>
-  <string name="button_add">Dodaj</string>
   <string name="button_change">Promijeni</string>
-  <string name="button_generate">Izradi ključ</string>
   <string name="button_resize">Promijeni veličinu</string>
   <string name="alert_disconnect_msg">Veza prekinuta</string>
   <string name="msg_copyright">Copyright © 2007-2008 Kenny Root http://the-b.org/, Jeffrey Sharkey http://jsharkey.org/</string>

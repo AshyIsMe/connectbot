@@ -2,16 +2,26 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased][unreleased]
+## [1.9.0-alpha1][1.9.0-alpha1]
+### Changed
+- Major Material Design overhaul of UI.
+- Improved cut-and-paste interface.
+
 ### Added
 - Tabs are now used on large screens.
 - Keyboard shortcuts and EULA in help menu.
+- Terminal mouse support including mouse wheel.
+- Full IPv6 host support.
 
 ### Removed
 - No more intro wizard on first start.
-- No more outdated physical or virtual keyboard instructions
+- No more outdated physical or virtual keyboard instructions.
 
-## [1.8.5][1.8.5] - 2014-08-11
+## [1.8.6][1.8.6] - 2015-08-24
+### Fixed
+- Crash due to no grantpt symbol in newer NDK was fixed.
+
+## [1.8.5][1.8.5] - 2015-08-11
 ### Added
 - Mouse support for right click and selection and mouse wheel
   (third button) to paste.
@@ -60,7 +70,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Color picker color numbers are now localized
 
 
-[unreleased]: https://github.com/connectbot/connectbot/compare/v1.8.5...HEAD
+[1.9.0-alpha1]: https://github.com/connectbot/connectbot/compare/v1.8.6...v1.9.0-alpha1
+[1.8.6]: https://github.com/connectbot/connectbot/compare/v1.8.5...v1.8.6
 [1.8.5]: https://github.com/connectbot/connectbot/compare/v1.8.4...v1.8.5
 [1.8.4]: https://github.com/connectbot/connectbot/compare/v1.8.3...v1.8.4
 [1.8.3]: https://github.com/connectbot/connectbot/compare/v1.8.2...v1.8.3
