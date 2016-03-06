@@ -30,6 +30,11 @@ public class PreferenceConstants {
 	public static final boolean PRE_HONEYCOMB = SDK_INT < 11;
 
 	public static final String MEMKEYS = "memkeys";
+	public static final String UPDATE = "update";
+
+	public static final String UPDATE_DAILY = "Daily";
+	public static final String UPDATE_WEEKLY = "Weekly";
+	public static final String UPDATE_NEVER = "Never";
 
 	public static final String LAST_CHECKED = "lastchecked";
 
@@ -49,6 +54,23 @@ public class PreferenceConstants {
 	public static final String PG_UPDN_GESTURE = "pgupdngesture";
 
 	public static final String KEYMODE = "keymode";
+	public static final String KEYBOARDFIX_KEYMODE = "keymode";
+	public static final String KEYBOARDFIX_KEYMODE_RIGHT = "Use right-side keys";
+	public static final String KEYBOARDFIX_KEYMODE_LEFT = "Use left-side keys";
+	public static final String KEYBOARDFIX_KEYMODE_DISABLED = "Disable";
+	public static final String KEYBOARDFIX_DELBACKSPACE = "deletebackspace";
+	public static final String KEYBOARDFIX_SEARCH_BUTTON = "searchbutton";
+	public static final String KEYBOARDFIX_SEARCH_BUTTON_TAB = "tab";
+	public static final String KEYBOARDFIX_SEARCH_BUTTON_META = "meta";
+	public static final String KEYBOARDFIX_SEARCH_BUTTON_URLSCAN = "urlscan";
+	public static final String KEYBOARDFIX_SEARCH_BUTTON_HARDMETA_SOFTURLSCAN = "hardmeta_softurlscan";
+	public static final String KEYBOARDFIX_XPERIAPRO = "xperiaProFix";
+	public static final String KEYBOARDFIX_DESIREZSKANDINAVIAN = "htcDesireZfix";
+	public static final String KEYBOARDFIX_DESIREZSKANDINAVIAN_OFF = "false";
+	public static final String KEYBOARDFIX_DESIREZSKANDINAVIAN_ON = "only_scandinavian_keys";
+	public static final String KEYBOARDFIX_DESIREZSKANDINAVIAN_ALL = "true";
+	public static final String KEYBOARDFIX_DPAD_ESCAPE = "dpadescape";
+	public static final String KEYBOARDFIX_SHIFT_FKEYS = "shiftfkeys";
 
 	public static final String KEYMODE_RIGHT = "Use right-side keys";
 	public static final String KEYMODE_LEFT = "Use left-side keys";
@@ -76,6 +98,8 @@ public class PreferenceConstants {
 	public static final float DEFAULT_BELL_VOLUME = 0.25f;
 
 	public static final String CONNECTION_PERSIST = "connPersist";
+
+        public static final String INSTALLED_MOSH_VERSION = "moshVersion";
 
 	public static final String SHIFT_FKEYS = "shiftfkeys";
 	public static final String CTRL_FKEYS = "ctrlfkeys";
